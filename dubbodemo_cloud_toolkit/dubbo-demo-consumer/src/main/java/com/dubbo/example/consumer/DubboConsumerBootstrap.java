@@ -19,8 +19,9 @@ public class DubboConsumerBootstrap {
 
 //    @Reference(version = "1.0.0", url = "dubbo://127.0.0.1:12345")
     @Reference(version = "1.0.0")
-
     private DemoService demoService;
+    @Reference(version = "1.0.1")
+    private DemoService abcService;
 
     public static void main(String[] args) {
         SpringApplication.run(DubboConsumerBootstrap.class).close();
@@ -29,6 +30,8 @@ public class DubboConsumerBootstrap {
     @Bean
     public ApplicationRunner runner() {
         System.out.println("==============="+ demoService);
+        System.out.println("==============="+ abcService);
+        abcService.sayHello("Provider2");
 //        return null;
         return args -> logger.info(demoService.sayHello("Provider"));
     }
